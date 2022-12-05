@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon ./app-express.js",
+    "start": "node ./app-express.js",
     "devstart": "nodemon ./bin/www"
   },
   "dependencies": {
