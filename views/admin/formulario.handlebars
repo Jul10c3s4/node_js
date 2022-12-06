@@ -1,0 +1,24 @@
+
+<h2>Novo aluno</h2>
+
+{{#each erros}}
+    <div class="alert alert-danger">
+        {{texto}}
+    </div>
+{{else}}
+{{/each}}
+
+<form action="/todos/formulario/cadastro" method="POST">
+    <div class="card">
+        <div class="card">
+            <p>nome: </p>
+            <input type="text" name="nome" class="form-control">
+            <p>idade: </p>
+            <input type="number" name="idade" class="form-control">
+            <p>Email:</p>
+            <input type="email" name="email" class="form-control">
+            <br>
+            <button type="submit" class="btn btn-success" > Cadastrar postagem</button>
+        </div>
+    </div>
+</form>
