@@ -30,7 +30,8 @@ const flash = require("connect-flash")
   const mongoose = require("mongoose")
 
   //se der erro em casa mude a versão do driver do node no mongo
-  mongoose.connect("mongodb://julio:96545146@ac-djbanuf-shard-00-00.qhiu5ry.mongodb.net:27017,ac-djbanuf-shard-00-01.qhiu5ry.mongodb.net:27017,ac-djbanuf-shard-00-02.qhiu5ry.mongodb.net:27017/?ssl=true&replicaSet=atlas-e2e8c0-shard-0&authSource=admin&retryWrites=true&w=majority", {
+  //no barra string deve-se colocar o nome do banco de dados
+  mongoose.connect("mongodb://julio:96545146@ac-djbanuf-shard-00-00.qhiu5ry.mongodb.net:27017,ac-djbanuf-shard-00-01.qhiu5ry.mongodb.net:27017,ac-djbanuf-shard-00-02.qhiu5ry.mongodb.net:27017/testezinho?ssl=true&replicaSet=atlas-e2e8c0-shard-0&authSource=admin&retryWrites=true&w=majority", {
   }).then(() => {
     console.log("MongoDB Conectado!!!");
   }).catch((erro) => {
