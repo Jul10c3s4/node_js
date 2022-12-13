@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const aluno = require("../models/aluno.js");
+//const aluno = require("../models/aluno.js");
 
 const mongoose = require("mongoose");
 require("../models/aluno");
 const alunos = mongoose.model("alunos");
 const  alu = require("../controlers/animal")
 
-router.get("/", function (req, res) {
+router.get("/admin", function (req, res) {
   res.render("admin/pagina-inicial");
 });
 
@@ -17,8 +17,8 @@ router.get("/", function (req, res) {
     res.sendFile(__dirname + "/html/sobre.html")
   });*/
 
-router.get("/todos", async function (req, res) {
-  /*alunos
+router.get("/admin/todos", async function (req, res) {
+  alunos
     .find()
     .lean()
     .then((dados) => {
@@ -27,16 +27,16 @@ router.get("/todos", async function (req, res) {
     .catch((erro) => {
       req.flash("error_msg", "houve um erro");
       res.redirect("/");
-    });*/
-    res.render("admin/todos-cadastros", { dados: alu.list});
+    });
+   // res.render("admin/todos-cadastros", { dados: alu.list});
 });
 
-router.get("/todos/formulario", function (req, res) {
+router.get("/admin/todos/formulario", function (req, res) {
   //exibe o arquivo que a pessoa escolher
   res.render("admin/formulario");
 });
 
-router.post("/todos/formulario/cadastro", function (req, res) {
+router.post("/admin/todos/formulario/cadastro", function (req, res) {
   //nesse código os dados tão sendo pegos do formulário e sendo renderizados para outra página html
   let nome = req.body.nome;
   let idade = req.body.idade;
@@ -74,7 +74,7 @@ router.post("/todos/formulario/cadastro", function (req, res) {
       .then(() => {
         req.flash("success_msg", "Aluno cadastrado!");
         console.log("Usuário criado com sucesso");
-        res.redirect("/todos");
+        res.redirect("/admin/todos");
       })
       .catch((erro) => {
         req.flash("error_msg", "Erro ao salva a categoria, tente novamente!");
@@ -82,6 +82,7 @@ router.post("/todos/formulario/cadastro", function (req, res) {
         console.log(aluno);
         res.redirect("/");
       });
+
 
     /*res.render('admin/cadastro', {nome: nome, idade: idade, email: email})*/
   }
@@ -98,5 +99,33 @@ router.post("/todos/formulario/cadastro", function (req, res) {
 router.get("/sobre", function (req, res) {
   res.render("admin/sobre");
 });
+
+router.get("/admin/todos/edit/:id", (req, res) => {
+  alunos.findOne({_id:req.params.id}).lean().then((aluno) => {
+    res.render("admin/editAluno", {Aluno: aluno})
+  }).catch((erro) =>{
+    req.flash("error_msg", "Este aluno não exite")
+    res.redirect("/admin/")
+  })
+})
+
+router.post("/admin/todos/edit", (req, res) => {
+  alunos.findOne({_id: req.body.id}).then((aluno) => {
+    aluno.nome = req.body.nome
+    aluno.idade = req.body.idade
+    aluno.email = req.body.email
+
+    aluno.save().then(() => {
+      res.flash("success_msg", "houve um ero interno ao salvar os dados do aluno")
+      res.redirect("/admin/todos")
+    }).catch((erro) => {
+      req.flash("error_msg", "Aluno editado com sucesso")
+      res.redirect("/admin/todos")
+    })
+  }).catch((erro) => {
+    req.flash("error_msg", "Houve um erro ao editar o aluno: "+erro)
+    res.redirect("/admin/todos")
+  })
+})
 
 module.exports = router;

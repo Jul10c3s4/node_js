@@ -1,19 +1,18 @@
 <h1>Todos os alunos</h1>
 <br />
+<a href="/admin/todos/formulario">
+  <button class="btn btn-success">Cadastrar aluno</button></a>
 <hr />
 <br />
-<a href="/todos/formulario">
-  <button class="btn btn-success">Cadastrar aluno</button></a>
-<br />
-<br />
-<p>{{dado}}</p>
 {{#each dados}}
   <div clas="card">
     <div class="card-body mt-4">
       <h6>nome: {{nome}}</h6>
       <p>idade: {{idade}}</p>
       <p>email: {{email}}</p>
-      <br />
+     <a href="/admin/todos/edit/{{_id}}" >
+     <button class="btn btn-success mt-3">Editar Aluno</button></a>
+      <hr>
       <br />
     </div>
   </div>
