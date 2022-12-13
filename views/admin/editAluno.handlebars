@@ -10,8 +10,8 @@
 <form action="/admin/todos/edit" method="POST">
     <div class="card">
         <div class="card">
+            <input type="hidden" name="id" value="{{Aluno._id}}">
             <p>nome: </p>
-            <input type="hidden" name="id" value="{{Aluno.id}}">
             <input type="text" name="nome" value="{{Aluno.nome}}" class="form-control">
             <p>idade: </p>
             <input type="number" name="idade"

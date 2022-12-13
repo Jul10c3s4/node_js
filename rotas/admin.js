@@ -116,10 +116,10 @@ router.post("/admin/todos/edit", (req, res) => {
     aluno.email = req.body.email
 
     aluno.save().then(() => {
-      res.flash("success_msg", "houve um ero interno ao salvar os dados do aluno")
+      req.flash("success_msg", "Aluno editado com sucesso")
       res.redirect("/admin/todos")
     }).catch((erro) => {
-      req.flash("error_msg", "Aluno editado com sucesso")
+      req.flash("error_msg", "houve um ero interno ao salvar os dados do aluno: "+erro)
       res.redirect("/admin/todos")
     })
   }).catch((erro) => {
